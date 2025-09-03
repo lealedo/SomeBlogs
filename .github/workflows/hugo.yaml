@@ -80,7 +80,8 @@ jobs:
       - name: Move contents
         run: |
           hugo new site Blog
-          mv \!(Blog) ./Blog/content/
+          shopt -s extglob
+          mv !(Blog) ./Blog/content/
       - name: Build the site
         run: |
           cd Blog
