@@ -77,8 +77,14 @@ jobs:
           key: hugo-${{ github.run_id }}
           restore-keys:
             hugo-
+      - name: Move contents
+        run: |
+          hugo new site Blog
+          mv !(Blog) ./Blog/content/
       - name: Build the site
         run: |
+          cd Blog
+          ls -al
           hugo \
             --gc \
             --minify \
@@ -93,7 +99,7 @@ jobs:
       - name: Upload artifact
         uses: actions/upload-pages-artifact@v3
         with:
-          path: ./public
+          path: ./Blog/public
   deploy:
     environment:
       name: github-pages
